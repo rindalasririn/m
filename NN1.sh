@@ -18,9 +18,9 @@ loglevel = 1
 
 socks5 = 173.245.211.239:1080
 
-socks5_username = mikrotik999
+socks5_username = KGaRweRV
 
-socks5_password = Elibawnos
+socks5_password = K4nP6COj1JY
 
 END
 
