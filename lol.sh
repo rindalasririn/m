@@ -16,7 +16,7 @@ listen = :2233
 
 loglevel = 1 
 
-socks5 = 143.198.171.112:1080 
+socks5 = 3.15.39.186:1080 
 
 socks5_username = mikrotik999 
 
