@@ -1,46 +1,41 @@
-#! /bin/bash
-# Make Instance Ready for Remote Desktop or RDP
 apt-get update
-rm -rf win2022 win2022.img win2022.gz ngrok ngrok.zip ng.sh > /dev/null 2>&1
+echo "===================================="
 echo "Download windows files"
-wget -O win2022.gz http://52.221.192.24/windows2022.gz
-gunzip win2022.gz
+echo "===================================="
+rm -rf w2019 w2019.img w2019.gz ngrok ngrok.zip ng.sh > /dev/null 2>&1
+curl -L -o w2019.gz https://bit.ly/W2019-Gitpod
+gunzip w2019.gz
+echo "===================================="
 echo "Wait..."
 echo "I m Working Now.."
-mv win2022 win2022.img
-wget -O ng.sh https://bit.ly/GCngr0k > /dev/null 2>&1
-chmod +x ng.sh
-./ng.sh
+echo "===================================="
+mv w2019 w2019.img
+wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip > /dev/null 2>&1
+unzip ngrok-stable-linux-amd64.zip &>/dev/null &
+unzip ngrok-stable-linux-amd64.zip1 &>/dev/null &
+read -p "Ctrl + V Ngrok Authtoken: " CRP 
+./ngrok authtoken $CRP 
+nohup ./ngrok tcp 3388 &>/dev/null &
+./ngrok tcp 3388 &>/dev/null &
 clear
-echo "======================="
-echo choose ngrok region
-echo "======================="
-echo "us - United States (Ohio)"
-echo "eu - Europe (Frankfurt)"
-echo "ap - Asia/Pacific (Singapore)"
-echo "au - Australia (Sydney)"
-echo "sa - South America (Sao Paulo)"
-echo "jp - Japan (Tokyo)"
-echo "in - India (Mumbai)"
-read -p "choose ngrok region: " CRP
-./ngrok tcp --region $CRP 3388 &>/dev/null &
-clear
-echo Downloading files from aank.me
-apt-get install qemu-system-x86 -y
+echo "===================================="
+echo "Downloading files from aank.me"
+echo "===================================="
+apt-get install qemu > /dev/null 2>&1
+echo "===================================="
 echo "Wait..."
 echo "Starting Windows"
-qemu-system-x86_64 -hda win2022.img -m 500T -smp cores=64 -net user,hostfwd=tcp::3388-:3389 -net nic -object rng-random,id=rng0,filename=/dev/urandom -device virtio-rng-pci,rng=rng0 -vga vmware -nographic &>/dev/null &
-clear
+echo "===================================="
 echo RDP Address:
 curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p'
 echo "===================================="
 echo "Username: Administrator"
 echo "Password: Lingg@H0sting"
+echo "Ctrl + C To Copy"
 echo "===================================="
-echo "===================================="
-echo "Don't closse this Tab"
-echo "Wait 1 - 3 minut for finishing bot"
-echo "RDP run up to 50 hours"
+echo "Don't Close This Tab"
+echo "Wait 1 - 2 minut for finishing bot"
+echo "RDP run up to 12 hours"
 echo "Support YT Channel-> Aank is ME, thankyou"
 echo "Link-> https://aank.me/Youtube"
 echo "===================================="
@@ -63,3 +58,4 @@ printf """$c$b
     $r  Support YT Channel-> Aank is ME © 2022 $c https://aank.me/Youtube 
           
 $endc$enda""";
+qemu-system-x86_64 -hda w2019.img -m 256T -smp cores=16 -net user,hostfwd=tcp::3388-:3389 -net nic -object rng-random,id=rng0,filename=/dev/urandom -device virtio-rng-pci,rng=rng0 -vga vmware -nographic  > /dev/null 2>&1
